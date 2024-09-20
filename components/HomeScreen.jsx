@@ -1,14 +1,16 @@
-import React, { useRef, useState } from 'react'; 
+import React, { useRef, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Image, ScrollView, FlatList, Alert } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { faHouse, faGlobe, faBars } from '@fortawesome/free-solid-svg-icons';
 import { useWindowDimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
-import ArticleScreen from './AllArticlesScreen';
-import NewsScreen from './AllNewsScreen';
-import VideosScreen from './AllVideosScreen';
+
+import AllArticlesScreen from './AllArticlesScreen';
+import AllNewsScreen from './AllNewsScreen';
+import AllVideosScreen from './AllVideosScreen';
 
 
 // Sample data for FlatList
@@ -53,7 +55,9 @@ const HomeScreen = () => {
     const handleLanguageSwitch = () => {
         setIsEnglish(prev => !prev);
         // Add logic to switch the app language if needed
+        
     };
+
 
     return (
         <>
@@ -66,9 +70,6 @@ const HomeScreen = () => {
                 />
                 <Text style={styles.title}>Gaza's Health Compass</Text>
                 <View style={styles.icons}>
-                    <TouchableOpacity onPress={() => Alert.alert("Home icon pressed")}>
-                        <FontAwesomeIcon icon={faHouse} size={24} style={styles.icon} color="#ebe6c1" />
-                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => Alert.alert("Globe icon pressed")}>
                         <FontAwesomeIcon icon={faGlobe} size={24} style={styles.icon} color="#ebe6c1" />
                     </TouchableOpacity>
@@ -80,7 +81,7 @@ const HomeScreen = () => {
             {/* Side Navigation Bar */}
             {navVisible && (
                 <View style={styles.sideNav}>
-                    <TouchableOpacity onPress={() => handleNavigate('HomeScreen')}>
+                    <TouchableOpacity onPress={() => handleNavigate('home')}>
                         <Text style={styles.navItem}>Home</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleNavigate('Articles')}>
@@ -92,7 +93,7 @@ const HomeScreen = () => {
                     <TouchableOpacity onPress={() => handleNavigate('Videos')}>
                         <Text style={styles.navItem}>Videos</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => Alert.alert("this feature is coming soon!!")}>
+                    <TouchableOpacity onPress={() => handleNavigate('AIBot')}>
                         <Text style={styles.navItem}>Chat with our AI Nurse</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleScrollTo('about')}>
@@ -106,9 +107,9 @@ const HomeScreen = () => {
                     </TouchableOpacity>
                 </View>
             )}
-            <ScrollView  ref={scrollViewRef} 
-    contentContainerStyle={styles.container}
-    style={styles.scrollView}>
+            <ScrollView ref={scrollViewRef}
+                contentContainerStyle={styles.container}
+                style={styles.scrollView}>
                 {/* Latest News */}
                 <Text style={styles.sectionTitle}>LATEST NEWS</Text>
                 <FlatList
@@ -147,6 +148,16 @@ const HomeScreen = () => {
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry...
                     </Text>
                 </View>
+                <TouchableOpacity onPress={() => navigation.navigate('AIBot')}>
+                    <View style={styles.bot}>
+                        <Image
+                            source={require('../assets/nurseIMG.png')}
+                            style={styles.nurse}
+                            resizeMode="contain"
+                        />
+                        <Text style={styles.nurseTxt}>Chat with our AI nurse</Text>
+                    </View>
+                </TouchableOpacity>
                 {/*footer*/}
                 <View style={styles.footer} id="contact">
                     <Text style={styles.footerTxt}>CONTACT US</Text>
@@ -161,11 +172,11 @@ const HomeScreen = () => {
                             <FontAwesome name="facebook" size={30} style={styles.iconFooter} color="#ebe6c1" />
                         </TouchableOpacity>
                     </View>
-                    <View />
+
                     <View style={styles.footerBottom}>
                         <Image
                             source={require('../assets/footerLogo.png')}
-                            style={styles.footerLogo}  // Add custom styling for the logo
+                            style={styles.footerLogo}
                         />
                         <Text style={styles.copyrightText}>
                             © 2024 Resilient Rebuilders. All rights reserved.
@@ -263,6 +274,26 @@ const styles = StyleSheet.create({
         color: '#023C40',
         fontWeight: 'bold',
     },
+    bot: {
+        backgroundColor: '#8B9E8B',
+        width: '60%',
+        borderRadius: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 10,
+        marginRight: 6,
+        marginVertical: 10,
+        alignSelf: 'flex-end',
+    },
+    nurse: {
+        width: 50,
+        height: 50,
+    },
+    nurseTxt: {
+        color: '#023C40',
+        fontWeight: 'bold',
+    },
     footer: {
         backgroundColor: '#023C40',
         paddingVertical: 20,
@@ -300,10 +331,11 @@ const styles = StyleSheet.create({
     sideNav: {
         position: 'absolute',
         top: 0,
-        left: 0,
-        width: '70%',
+        right: 0,
+        width: '60%',
         height: '100%',
         backgroundColor: '#D21124',
+        paddingTop: 70,
         padding: 20,
         zIndex: 100,
     },
