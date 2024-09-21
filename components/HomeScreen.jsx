@@ -8,12 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 
 
-import AllArticlesScreen from './AllArticlesScreen';
-import AllNewsScreen from './AllNewsScreen';
-import AllVideosScreen from './AllVideosScreen';
-
-
-// Sample data for FlatList
 const data = [
     'Item 1',
     'Item 2',
@@ -32,7 +26,7 @@ const renderCircleItem = ({ item }) => (
 const HomeScreen = () => {
     const { width, height } = useWindowDimensions();
     const navigation = useNavigation();
-    const scrollViewRef = useRef(null); // Reference for the ScrollView
+    const scrollViewRef = useRef(null); 
     const [navVisible, setNavVisible] = useState(false);
     const [isEnglish, setIsEnglish] = useState(true);
 
@@ -47,15 +41,13 @@ const HomeScreen = () => {
 
     const handleScrollTo = (section) => {
         scrollViewRef.current.scrollTo({
-            y: section === 'about' ? 400 : 800, // Adjust the y value to where the sections are
+            y: section === 'about' ? 400 : 800, 
             animated: true,
         });
-        setNavVisible(false); // Close the sidebar after scrolling
+        setNavVisible(false); 
     }
     const handleLanguageSwitch = () => {
         setIsEnglish(prev => !prev);
-        // Add logic to switch the app language if needed
-        
     };
 
 
@@ -192,7 +184,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: '#f5f5dc',
+        backgroundColor: '#EBE6C1',
         paddingTop: 70,
     },
     stickyHeader: {
