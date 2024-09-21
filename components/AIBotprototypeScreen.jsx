@@ -50,6 +50,7 @@ const AIBotprototypeScreen = () => {
 
     return (
         <>
+        <View backgroundColor="#EBE6C1">
             <StatusBar backgroundColor="#D21124" barStyle="dark-content" />
             <CommonHeader handleToggleNav={handleToggleNav} />
             <CommonNavBar
@@ -57,8 +58,8 @@ const AIBotprototypeScreen = () => {
                 handleScrollTo={handleScrollTo}
                 handleLanguageSwitch={handleLanguageSwitch}
             />
-            <ScrollView ref={scrollViewRef} contentContainerStyle={styles.container}>
-                <ScrollView contentContainerStyle={styles.messageContainer}>
+            <ScrollView ref={scrollViewRef} contentContainerStyle={styles.container} style={styles.ScrollView}>
+                <ScrollView contentContainerStyle={styles.messageContainer} style={styles.ScrollView}>
                     {messages.map((msg, index) => (
                         <View key={index} style={msg.sender === 'user' ? styles.userMessage : styles.aiMessage}>
                             <Text style={msg.sender === 'user' ? styles.userText : styles.aiText}>{msg.text}</Text>
@@ -69,7 +70,7 @@ const AIBotprototypeScreen = () => {
                     <TextInput
                         style={styles.input}
                         placeholder="Type your message..."
-                         placeholderTextColor="#023C40"
+                        placeholderTextColor="#023C40"
                         value={inputMessage}
                         onChangeText={setInputMessage}
                     />
@@ -79,6 +80,7 @@ const AIBotprototypeScreen = () => {
                 </View>
             </ScrollView>
             <CommonFooter />
+            </View>
         </>
     );
 };
@@ -86,8 +88,11 @@ const AIBotprototypeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: '#f5f5dc',
+        backgroundColor: '#EBE6C1',
         paddingTop: 70
+    },
+    scrollView: {
+        backgroundColor: '#EBE6C1',
     },
     title: {
         fontSize: 24,
